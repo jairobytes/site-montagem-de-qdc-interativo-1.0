@@ -1,11 +1,7 @@
 # QDC Interativo
 
-Visualizador 3D de Disjuntores e Quadros de Distribuição
+## Visualizador 3D de Disjuntores e Quadros de Distribuição
 
-## 🚀 Acesse o site: 
+### Acesse: https://jairobytes.github.io/site-montagem-de-qdc-interativo-1.0/
 
-### https://jairobytes.github.io/site-montagem-de-qdc-interativo-1.0/
-
----
-
-Para mais informações, consulte a documentação completa no arquivo DOCS.md
+Site completo com interface 3D interativa.

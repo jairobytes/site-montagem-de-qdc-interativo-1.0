@@ -1,62 +1,237 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QDC Interativo - Visualizador 3D de Disjuntores e Quadros</title>
-    <link rel="stylesheet" href="/site-montagem-de-qdc-interativo-1.0/css/style.css">
+    <meta charset='UTF-8'>
+    <title>QDC 3D</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial; background: #1a1a2e; height: 100vh; overflow: hidden; }
+        .container { display: flex; height: 100vh; }
+        .sidebar { width: 400px; background: white; padding: 20px; overflow-y: auto; }
+        .sidebar h1 { color: #333; margin-bottom: 20px; }
+        .control { margin-bottom: 20px; }
+        .control label { display: block; font-weight: bold; margin-bottom: 5px; color: #333; }
+        .control select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .viewport { flex: 1; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); position: relative; }
+        #canvas { width: 100%; height: 100%; display: block; }
+        .specs { background: #f5f5f5; padding: 15px; margin-top: 20px; border-radius: 4px; }
+        .specs h3 { margin-bottom: 10px; color: #333; }
+        .spec-item { padding: 5px 0; font-size: 12px; color: #666; border-bottom: 1px solid #ddd; }
+    </style>
 </head>
 <body>
     <div class="container">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1>QDC Interativo</h1>
-                <p>Visualizador 3D de Disjuntores e Quadros</p>
-            </div>
-            <div class="control-group">
-                <label for="tipo-produto">Tipo de Produto:</label>
-                <select id="tipo-produto">
+        <div class="sidebar">
+            <h1>QDC Interativo</h1>
+            
+            <div class="control">
+                <label>Tipo de Produto:</label>
+                <select id="tipo">
                     <option value="">Selecione...</option>
                     <option value="disjuntor">Disjuntor</option>
                     <option value="quadro">Quadro de Distribuição</option>
                 </select>
             </div>
-            <div class="control-group">
-                <label for="marca">Marca:</label>
+            
+            <div class="control">
+                <label>Marca:</label>
                 <select id="marca">
                     <option value="">Selecione uma marca...</option>
                 </select>
             </div>
-            <div class="control-group">
-                <label for="modelo">Modelo:</label>
+            
+            <div class="control">
+                <label>Modelo:</label>
                 <select id="modelo">
                     <option value="">Selecione um modelo...</option>
                 </select>
             </div>
-            <div class="specs-container">
+            
+            <div class="specs">
                 <h3>Especificações</h3>
-                <div id="specs-list" class="specs-list">
-                    <p class="empty-specs">Selecione um produto para ver as especificações</p>
-                </div>
+                <div id="specs-list"></div>
             </div>
-            <div class="control-group">
-                <h3>Controles 3D</h3>
-                <p class="hint">🖱️ Arraste para rotacionar</p>
-                <p class="hint">🔍 Scroll para zoom</p>
-                <p class="hint">🖱️ Clique direito + arraste para pan</p>
-            </div>
-            <button id="btn-reset" class="btn-reset">🔄 Resetar Visualização</button>
-        </aside>
-        <main class="viewport">
-            <div id="canvas-container"></div>
-            <div id="loading" class="loading">
-                <p>Carregando...</p>
-            </div>
-        </main>
+            
+            <button onclick="resetView()" style="width: 100%; padding: 10px; background: #2a5298; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">🔄 Reset</button>
+        </div>
+        
+        <div class="viewport">
+            <canvas id="canvas"></canvas>
+        </div>
     </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="/site-montagem-de-qdc-interativo-1.0/js/data.js"></script>
-    <script src="/site-montagem-de-qdc-interativo-1.0/js/viewer.js"></script>
-    <script src="/site-montagem-de-qdc-interativo-1.0/js/main.js"></script>
+    <script>
+        const PRODUTOS = {
+            disjuntores: {
+                "Schneider Electric": [
+                    {id: "sch_10a", modelo: "Acti9 C60N 10A", specs: {"Corrente": "10A", "Polos": "1P", "Tensão": "230V"}},
+                    {id: "sch_20a", modelo: "Acti9 C60N 20A", specs: {"Corrente": "20A", "Polos": "1P", "Tensão": "230V"}},
+                    {id: "sch_32a", modelo: "Acti9 C60N 32A", specs: {"Corrente": "32A", "Polos": "2P", "Tensão": "230/400V"}}
+                ],
+                "Siemens": [
+                    {id: "sie_10a", modelo: "5SY5 10A", specs: {"Corrente": "10A", "Polos": "1P", "Tensão": "230V"}},
+                    {id: "sie_20a", modelo: "5SY5 20A", specs: {"Corrente": "20A", "Polos": "1P", "Tensão": "230V"}}
+                ],
+                "ABB": [
+                    {id: "abb_10a", modelo: "S200 10A", specs: {"Corrente": "10A", "Polos": "1P", "Tensão": "230V"}},
+                    {id: "abb_20a", modelo: "S200 20A", specs: {"Corrente": "20A", "Polos": "1P", "Tensão": "230V"}}
+                ]
+            },
+            quadros: {
+                "Schneider Electric": [
+                    {id: "sch_q4", modelo: "Pragma 4 disjuntores", specs: {"Módulos": "4", "Tipo": "Embutir", "Proteção": "IP30"}},
+                    {id: "sch_q12", modelo: "Pragma 12 disjuntores", specs: {"Módulos": "12", "Tipo": "Embutir", "Proteção": "IP30"}}
+                ],
+                "Steck": [
+                    {id: "stk_q8", modelo: "SCE 8 disjuntores", specs: {"Módulos": "8", "Tipo": "Embutir", "Proteção": "IP30"}},
+                    {id: "stk_q16", modelo: "SCE 16 disjuntores", specs: {"Módulos": "16", "Tipo": "Embutir", "Proteção": "IP40"}}
+                ]
+            }
+        };
+        
+        let scene, camera, renderer;
+        let currentMesh = null;
+        
+        function init3D() {
+            const canvas = document.getElementById('canvas');
+            const width = canvas.clientWidth || window.innerWidth * 0.6;
+            const height = canvas.clientHeight || window.innerHeight;
+            
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2e);
+            
+            camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+            camera.position.z = 150;
+            
+            renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
+            renderer.setSize(width, height);
+            
+            // Lights
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(100, 100, 100);
+            scene.add(light);
+            
+            const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambient);
+            
+            animate();
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        
+        function createProduct(produto) {
+            if (currentMesh) scene.remove(currentMesh);
+            
+            currentMesh = new THREE.Group();
+            const geometry = new THREE.BoxGeometry(50, 70, 20);
+            const material = new THREE.MeshStandardMaterial({color: 0x2a5298, metalness: 0.6});
+            const box = new THREE.Mesh(geometry, material);
+            box.castShadow = true;
+            currentMesh.add(box);
+            scene.add(currentMesh);
+        }
+        
+        function resetView() {
+            if (currentMesh) {
+                currentMesh.rotation.set(0, 0, 0);
+            }
+        }
+        
+        document.getElementById('tipo').addEventListener('change', function() {
+            const tipo = this.value;
+            const marcaSelect = document.getElementById('marca');
+            marcaSelect.innerHTML = '<option value="">Selecione uma marca...</option>';
+            
+            if (!tipo) return;
+            
+            const tipoKey = tipo === 'disjuntor' ? 'disjuntores' : 'quadros';
+            Object.keys(PRODUTOS[tipoKey]).forEach(marca => {
+                const opt = document.createElement('option');
+                opt.value = marca;
+                opt.textContent = marca;
+                marcaSelect.appendChild(opt);
+            });
+        });
+        
+        document.getElementById('marca').addEventListener('change', function() {
+            const tipo = document.getElementById('tipo').value;
+            const marca = this.value;
+            const modeloSelect = document.getElementById('modelo');
+            modeloSelect.innerHTML = '<option value="">Selecione um modelo...</option>';
+            
+            if (!tipo || !marca) return;
+            
+            const tipoKey = tipo === 'disjuntor' ? 'disjuntores' : 'quadros';
+            PRODUTOS[tipoKey][marca].forEach(prod => {
+                const opt = document.createElement('option');
+                opt.value = prod.id;
+                opt.textContent = prod.modelo;
+                opt.dataset.specs = JSON.stringify(prod.specs);
+                modeloSelect.appendChild(opt);
+            });
+        });
+        
+        document.getElementById('modelo').addEventListener('change', function() {
+            const tipo = document.getElementById('tipo').value;
+            const marca = document.getElementById('marca').value;
+            const modeloId = this.value;
+            
+            if (!tipo || !marca || !modeloId) return;
+            
+            const tipoKey = tipo === 'disjuntor' ? 'disjuntores' : 'quadros';
+            const produto = PRODUTOS[tipoKey][marca].find(p => p.id === modeloId);
+            
+            if (produto) {
+                createProduct(produto);
+                
+                // Show specs
+                const specsList = document.getElementById('specs-list');
+                specsList.innerHTML = '';
+                Object.entries(produto.specs).forEach(([key, value]) => {
+                    const div = document.createElement('div');
+                    div.className = 'spec-item';
+                    div.innerHTML = `<strong>${key}:</strong> ${value}`;
+                    specsList.appendChild(div);
+                });
+            }
+        });
+        
+        // Mouse controls
+        let isDragging = false;
+        let prevX = 0, prevY = 0;
+        
+        document.getElementById('canvas').addEventListener('mousedown', (e) => {
+            isDragging = true;
+            prevX = e.clientX;
+            prevY = e.clientY;
+        });
+        
+        document.getElementById('canvas').addEventListener('mousemove', (e) => {
+            if (!isDragging || !currentMesh) return;
+            const deltaX = e.clientX - prevX;
+            const deltaY = e.clientY - prevY;
+            currentMesh.rotation.y += deltaX * 0.01;
+            currentMesh.rotation.x += deltaY * 0.01;
+            prevX = e.clientX;
+            prevY = e.clientY;
+        });
+        
+        document.getElementById('canvas').addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+        
+        document.getElementById('canvas').addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (!currentMesh) return;
+            camera.position.z += e.deltaY > 0 ? 10 : -10;
+            camera.position.z = Math.max(50, Math.min(500, camera.position.z));
+        });
+        
+        init3D();
+    </script>
 </body>
 </html>
