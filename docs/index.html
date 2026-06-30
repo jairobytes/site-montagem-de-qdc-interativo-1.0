@@ -1,7 +1,11 @@
+<!-- QDC Interativo v2.0 -->
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset='UTF-8'>
+    <meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
     <title>QDC 3D</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -115,7 +119,6 @@
             renderer.setSize(canvas.clientWidth, canvas.clientHeight);
             renderer.shadowMap.enabled = true;
             
-            // Lighting
             const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
             dirLight.position.set(200, 200, 200);
             dirLight.castShadow = true;
@@ -132,7 +135,6 @@
         function createDisjuntor(produto) {
             const group = new THREE.Group();
             
-            // Corpo do disjuntor
             const bodyGeometry = new THREE.BoxGeometry(15, 70, 75);
             const bodyMaterial = new THREE.MeshStandardMaterial({
                 color: produto.color || 0x2a5298,
@@ -143,7 +145,6 @@
             body.castShadow = true;
             group.add(body);
             
-            // Alça (alavanca)
             const handleGeometry = new THREE.BoxGeometry(6, 15, 8);
             const handleMaterial = new THREE.MeshStandardMaterial({
                 color: 0x1a1a1a,
@@ -155,7 +156,6 @@
             handle.castShadow = true;
             group.add(handle);
             
-            // Terminais (superior e inferior)
             const terminalGeometry = new THREE.CylinderGeometry(2, 2, 5, 8);
             const terminalMaterial = new THREE.MeshStandardMaterial({
                 color: 0xccaa00,
@@ -180,7 +180,6 @@
             const group = new THREE.Group();
             const modules = produto.modules || 4;
             
-            // Carcaça do quadro
             const width = 80 + (modules * 8);
             const height = 140;
             const depth = 40;
@@ -195,7 +194,6 @@
             caseBox.castShadow = true;
             group.add(caseBox);
             
-            // Slots para módulos
             const slotMaterial = new THREE.MeshStandardMaterial({
                 color: 0x1a1a1a,
                 metalness: 0.1,
@@ -211,7 +209,6 @@
                 group.add(slot);
             }
             
-            // Chave de segurança frontal
             const keyGeometry = new THREE.BoxGeometry(15, 25, 5);
             const keyMaterial = new THREE.MeshStandardMaterial({
                 color: 0xff0000,
@@ -246,7 +243,6 @@
             renderer.render(scene, camera);
         }
         
-        // Event listeners
         document.getElementById('tipo').addEventListener('change', function() {
             const tipo = this.value;
             const marcaSelect = document.getElementById('marca');
@@ -294,7 +290,6 @@
                 createProduct(produto);
                 resetView();
                 
-                // Show specs
                 const specsList = document.getElementById('specs-list');
                 specsList.innerHTML = '';
                 Object.entries(produto.specs).forEach(([key, value]) => {
@@ -306,7 +301,6 @@
             }
         });
         
-        // Mouse controls
         document.getElementById('canvas').addEventListener('mousedown', (e) => {
             controls.isDragging = true;
             controls.prevX = e.clientX;
