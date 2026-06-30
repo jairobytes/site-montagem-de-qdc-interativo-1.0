@@ -1,0 +1,60 @@
+const PRODUTOS = {
+    disjuntores: {
+        "Schneider Electric": [
+            {id: "sch_acti9_c60_10a", modelo: "Acti9 C60N 10A", marca: "Schneider Electric", tipo: "Disjuntor", specs: {"Corrente": "10A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 70 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 17.5, profundidade: 78}, cor: 0x00AA00},
+            {id: "sch_acti9_c60_20a", modelo: "Acti9 C60N 20A", marca: "Schneider Electric", tipo: "Disjuntor", specs: {"Corrente": "20A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 70 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 17.5, profundidade: 78}, cor: 0xFF9900},
+            {id: "sch_acti9_c60_32a", modelo: "Acti9 C60N 32A", marca: "Schneider Electric", tipo: "Disjuntor", specs: {"Corrente": "32A", "Polos": "2P", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "35 x 70 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 35, profundidade: 78}, cor: 0xFF5500},
+            {id: "sch_acti9_c60_63a", modelo: "Acti9 C60N 63A", marca: "Schneider Electric", tipo: "Disjuntor", specs: {"Corrente": "63A", "Polos": "3P", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "52.5 x 70 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 52.5, profundidade: 78}, cor: 0xFF0000},
+            {id: "sch_acti9_c60_100a", modelo: "Acti9 C60N 100A", marca: "Schneider Electric", tipo: "Disjuntor", specs: {"Corrente": "100A", "Polos": "3P+N", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "70 x 70 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 70, profundidade: 78}, cor: 0xAA0000}
+        ],
+        "Siemens": [
+            {id: "sie_5sy5_10a", modelo: "5SY5 10A", marca: "Siemens", tipo: "Disjuntor", specs: {"Corrente": "10A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 69 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 69, largura: 17.5, profundidade: 78}, cor: 0x0066FF},
+            {id: "sie_5sy5_20a", modelo: "5SY5 20A", marca: "Siemens", tipo: "Disjuntor", specs: {"Corrente": "20A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 69 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 69, largura: 17.5, profundidade: 78}, cor: 0x0088FF},
+            {id: "sie_5sy5_63a", modelo: "5SY5 63A", marca: "Siemens", tipo: "Disjuntor", specs: {"Corrente": "63A", "Polos": "3P", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "52.5 x 69 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 69, largura: 52.5, profundidade: 78}, cor: 0x0044FF},
+            {id: "sie_5sy5_100a", modelo: "5SY5 100A", marca: "Siemens", tipo: "Disjuntor", specs: {"Corrente": "100A", "Polos": "3P+N", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "70 x 69 x 78 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 69, largura: 70, profundidade: 78}, cor: 0x0022FF}
+        ],
+        "ABB": [
+            {id: "abb_s200_10a", modelo: "S200 10A", marca: "ABB", tipo: "Disjuntor", specs: {"Corrente": "10A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 71 x 77 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 71, largura: 17.5, profundidade: 77}, cor: 0xFF6600},
+            {id: "abb_s200_20a", modelo: "S200 20A", marca: "ABB", tipo: "Disjuntor", specs: {"Corrente": "20A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 71 x 77 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 71, largura: 17.5, profundidade: 77}, cor: 0xFF7700},
+            {id: "abb_s200_63a", modelo: "S200 63A", marca: "ABB", tipo: "Disjuntor", specs: {"Corrente": "63A", "Polos": "3P", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "52.5 x 71 x 77 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 71, largura: 52.5, profundidade: 77}, cor: 0xFF5500},
+            {id: "abb_s200_100a", modelo: "S200 100A", marca: "ABB", tipo: "Disjuntor", specs: {"Corrente": "100A", "Polos": "3P+N", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "70 x 71 x 77 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 71, largura: 70, profundidade: 77}, cor: 0xFF3300}
+        ],
+        "WEG": [
+            {id: "weg_rwn_10a", modelo: "RWN 10A", marca: "WEG", tipo: "Disjuntor", specs: {"Corrente": "10A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 70 x 76 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 17.5, profundidade: 76}, cor: 0x00CC00},
+            {id: "weg_rwn_20a", modelo: "RWN 20A", marca: "WEG", tipo: "Disjuntor", specs: {"Corrente": "20A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 70 x 76 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 17.5, profundidade: 76}, cor: 0x00DD00},
+            {id: "weg_rwn_63a", modelo: "RWN 63A", marca: "WEG", tipo: "Disjuntor", specs: {"Corrente": "63A", "Polos": "3P", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "52.5 x 70 x 76 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 52.5, profundidade: 76}, cor: 0x00AA00},
+            {id: "weg_rwn_100a", modelo: "RWN 100A", marca: "WEG", tipo: "Disjuntor", specs: {"Corrente": "100A", "Polos": "3P+N", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "70 x 70 x 76 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 70, profundidade: 76}, cor: 0x008800}
+        ],
+        "Steck": [
+            {id: "stk_din_10a", modelo: "DIN 10A", marca: "Steck", tipo: "Disjuntor", specs: {"Corrente": "10A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 70 x 79 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 17.5, profundidade: 79}, cor: 0xCCCC00},
+            {id: "stk_din_20a", modelo: "DIN 20A", marca: "Steck", tipo: "Disjuntor", specs: {"Corrente": "20A", "Polos": "1P", "Tensão": "230V", "Curva": "C", "Capacidade Int.": "6kA", "Dimensões": "17.5 x 70 x 79 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 17.5, profundidade: 79}, cor: 0xDDDD00},
+            {id: "stk_din_63a", modelo: "DIN 63A", marca: "Steck", tipo: "Disjuntor", specs: {"Corrente": "63A", "Polos": "3P", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "52.5 x 70 x 79 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 52.5, profundidade: 79}, cor: 0xAAAA00},
+            {id: "stk_din_100a", modelo: "DIN 100A", marca: "Steck", tipo: "Disjuntor", specs: {"Corrente": "100A", "Polos": "3P+N", "Tensão": "230/400V", "Curva": "C", "Capacidade Int.": "10kA", "Dimensões": "70 x 70 x 79 mm", "Norma": "IEC 60898-1"}, dimensoes: {altura: 70, largura: 70, profundidade: 79}, cor: 0x888800}
+        ]
+    },
+    quadros: {
+        "Schneider Electric": [
+            {id: "sch_pragma_4d", modelo: "Pragma 4 disjuntores", marca: "Schneider Electric", tipo: "Quadro Distribuição", instalacao: "Embutir", specs: {"Módulos": "4", "Tipo": "Embutir", "Altura": "170 mm", "Largura": "120 mm", "Profundidade": "100 mm", "Proteção": "IP30", "Material": "PVC"}, dimensoes: {altura: 170, largura: 120, profundidade: 100}, cor: 0xFFFFFF},
+            {id: "sch_pragma_12d", modelo: "Pragma 12 disjuntores", marca: "Schneider Electric", tipo: "Quadro Distribuição", instalacao: "Embutir", specs: {"Módulos": "12", "Tipo": "Embutir", "Altura": "250 mm", "Largura": "230 mm", "Profundidade": "110 mm", "Proteção": "IP30", "Material": "PVC"}, dimensoes: {altura: 250, largura: 230, profundidade: 110}, cor: 0xF5F5F5},
+            {id: "sch_pragma_24d", modelo: "Pragma 24 disjuntores", marca: "Schneider Electric", tipo: "Quadro Distribuição", instalacao: "Sobrepor", specs: {"Módulos": "24", "Tipo": "Sobrepor", "Altura": "350 mm", "Largura": "350 mm", "Profundidade": "120 mm", "Proteção": "IP40", "Material": "Chapa Metálica"}, dimensoes: {altura: 350, largura: 350, profundidade: 120}, cor: 0xE8E8E8}
+        ],
+        "Steck": [
+            {id: "stk_scc_8d", modelo: "SCE 8 disjuntores", marca: "Steck", tipo: "Quadro Distribuição", instalacao: "Embutir", specs: {"Módulos": "8", "Tipo": "Embutir", "Altura": "190 mm", "Largura": "140 mm", "Profundidade": "90 mm", "Proteção": "IP30", "Material": "PVC"}, dimensoes: {altura: 190, largura: 140, profundidade: 90}, cor: 0xFAFAFA},
+            {id: "stk_scc_16d", modelo: "SCE 16 disjuntores", marca: "Steck", tipo: "Quadro Distribuição", instalacao: "Embutir", specs: {"Módulos": "16", "Tipo": "Embutir", "Altura": "280 mm", "Largura": "280 mm", "Profundidade": "110 mm", "Proteção": "IP40", "Material": "ABS"}, dimensoes: {altura: 280, largura: 280, profundidade: 110}, cor: 0xF0F0F0},
+            {id: "stk_scc_48d", modelo: "SCE 48 disjuntores", marca: "Steck", tipo: "Quadro Distribuição", instalacao: "Sobrepor", specs: {"Módulos": "48", "Tipo": "Sobrepor", "Altura": "410 mm", "Largura": "450 mm", "Profundidade": "120 mm", "Proteção": "IP54", "Material": "Chapa Metálica"}, dimensoes: {altura: 410, largura: 450, profundidade: 120}, cor: 0xDCDCDC}
+        ],
+        "Tigre": [
+            {id: "tig_qd_6d", modelo: "QD 6 disjuntores", marca: "Tigre", tipo: "Quadro Distribuição", instalacao: "Embutir", specs: {"Módulos": "6", "Tipo": "Embutir", "Altura": "185 mm", "Largura": "130 mm", "Profundidade": "85 mm", "Proteção": "IP30", "Material": "PVC"}, dimensoes: {altura: 185, largura: 130, profundidade: 85}, cor: 0xFEFEFE},
+            {id: "tig_qd_12d", modelo: "QD 12 disjuntores", marca: "Tigre", tipo: "Quadro Distribuição", instalacao: "Sobrepor", specs: {"Módulos": "12", "Tipo": "Sobrepor", "Altura": "240 mm", "Largura": "280 mm", "Profundidade": "100 mm", "Proteção": "IP40", "Material": "Plástico ABS"}, dimensoes: {altura: 240, largura: 280, profundidade: 100}, cor: 0xF2F2F2},
+            {id: "tig_qd_24d", modelo: "QD 24 disjuntores", marca: "Tigre", tipo: "Quadro Distribuição", instalacao: "Sobrepor", specs: {"Módulos": "24", "Tipo": "Sobrepor", "Altura": "360 mm", "Largura": "360 mm", "Profundidade": "115 mm", "Proteção": "IP54", "Material": "Chapa Galvanizada"}, dimensoes: {altura: 360, largura: 360, profundidade: 115}, cor: 0xE0E0E0}
+        ],
+        "Tramontina": [
+            {id: "tra_qd_8d", modelo: "QD 8 disjuntores", marca: "Tramontina", tipo: "Quadro Distribuição", instalacao: "Embutir", specs: {"Módulos": "8", "Tipo": "Embutir", "Altura": "195 mm", "Largura": "145 mm", "Profundidade": "95 mm", "Proteção": "IP30", "Material": "PVC"}, dimensoes: {altura: 195, largura: 145, profundidade: 95}, cor: 0xEEEEEE},
+            {id: "tra_qd_16d", modelo: "QD 16 disjuntores", marca: "Tramontina", tipo: "Quadro Distribuição", instalacao: "Sobrepor", specs: {"Módulos": "16", "Tipo": "Sobrepor", "Altura": "270 mm", "Largura": "300 mm", "Profundidade": "105 mm", "Proteção": "IP40", "Material": "ABS"}, dimensoes: {altura: 270, largura: 300, profundidade: 105}, cor: 0xD8D8D8}
+        ],
+        "Legrand": [
+            {id: "leg_pra_4d", modelo: "Pial Legrand 4 disjuntores", marca: "Legrand", tipo: "Quadro Distribuição", instalacao: "Embutir", specs: {"Módulos": "4", "Tipo": "Embutir", "Altura": "175 mm", "Largura": "125 mm", "Profundidade": "95 mm", "Proteção": "IP30", "Material": "PVC"}, dimensoes: {altura: 175, largura: 125, profundidade: 95}, cor: 0xF8F8F8},
+            {id: "leg_pra_12d", modelo: "Pial Legrand 12 disjuntores", marca: "Legrand", tipo: "Quadro Distribuição", instalacao: "Sobrepor", specs: {"Módulos": "12", "Tipo": "Sobrepor", "Altura": "260 mm", "Largura": "320 mm", "Profundidade": "110 mm", "Proteção": "IP40", "Material": "Chapa Metálica"}, dimensoes: {altura: 260, largura: 320, profundidade: 110}, cor: 0xE8E8E8}
+        ]
+    }
+};
