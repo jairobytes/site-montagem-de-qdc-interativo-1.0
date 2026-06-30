@@ -8,14 +8,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar com controles -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <h1>QDC Interativo</h1>
                 <p>Visualizador 3D de Disjuntores e Quadros</p>
             </div>
-
-            <!-- Seleção de tipo -->
             <div class="control-group">
                 <label for="tipo-produto">Tipo de Produto:</label>
                 <select id="tipo-produto">
@@ -24,44 +21,32 @@
                     <option value="quadro">Quadro de Distribuição</option>
                 </select>
             </div>
-
-            <!-- Seleção de marca -->
             <div class="control-group">
                 <label for="marca">Marca:</label>
                 <select id="marca">
                     <option value="">Selecione uma marca...</option>
                 </select>
             </div>
-
-            <!-- Seleção de modelo -->
             <div class="control-group">
                 <label for="modelo">Modelo:</label>
                 <select id="modelo">
                     <option value="">Selecione um modelo...</option>
                 </select>
             </div>
-
-            <!-- Specs do produto -->
             <div class="specs-container">
                 <h3>Especificações</h3>
                 <div id="specs-list" class="specs-list">
                     <p class="empty-specs">Selecione um produto para ver as especificações</p>
                 </div>
             </div>
-
-            <!-- Controles 3D -->
             <div class="control-group">
                 <h3>Controles 3D</h3>
                 <p class="hint">🖱️ Arraste para rotacionar</p>
                 <p class="hint">🔍 Scroll para zoom</p>
                 <p class="hint">🖱️ Clique direito + arraste para pan</p>
             </div>
-
-            <!-- Botão de reset -->
             <button id="btn-reset" class="btn-reset">🔄 Resetar Visualização</button>
         </aside>
-
-        <!-- Área 3D -->
         <main class="viewport">
             <div id="canvas-container"></div>
             <div id="loading" class="loading">
@@ -69,8 +54,6 @@
             </div>
         </main>
     </div>
-
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/data.js"></script>
     <script src="js/viewer.js"></script>
